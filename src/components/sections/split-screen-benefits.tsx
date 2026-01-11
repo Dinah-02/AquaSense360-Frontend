@@ -6,57 +6,88 @@ import { useInView } from "framer-motion"
 import { Check } from "lucide-react"
 
 const benefits = [
-  "Saves Water & Reduces Cost",
-  "Protects Crops",
-  "Improves Accuracy",
-  "Reduces Manual Effort",
-  "Supports Climate-Resilient Farming",
+  {
+    title: "Saves Water & Reduces Cost",
+    description: "Use only the water your crops need — reducing bills and conserving precious resources."
+  },
+  {
+    title: "Protects Crops from Stress",
+    description: "Prevents heat stress and waterlogging by timing irrigation perfectly with weather conditions."
+  },
+  {
+    title: "Improves Irrigation Accuracy",
+    description: "Data-driven decisions replace guesswork, ensuring optimal watering every time."
+  },
+  {
+    title: "Reduces Manual Effort",
+    description: "Automated monitoring and control means less time checking fields and adjusting pumps."
+  },
+  {
+    title: "Supports Climate-Resilient Farming",
+    description: "Adapt to changing weather patterns with a system that learns and responds to climate data."
+  }
 ]
 
-export default function SplitScreenBenefits() {
+export default function BenefitsSection() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.3 })
+  const isInView = useInView(ref, { once: true, amount: 0.2 })
 
   return (
-    <section ref={ref} className="py-20 bg-white px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.8 }}
+    <section ref={ref} className="py-24 bg-white px-6">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        
+        {/* RESTORED: Header with original large font sizes */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8 }}
+          className="lg:sticky lg:top-32"
+        >
+          <h2 
+            className="text-5xl md:text-6xl font-bold mb-6 tracking-tight"
+            style={{ color: "#1A302B" }}
           >
-            <h2
-              className="text-5xl md:text-6xl font-bold mb-8 text-balance-heading"
-              style={{ color: "var(--color-forest-dark)" }}
-            >
-              Benefits of AquaSense 360
-            </h2>
-            <p className="text-xl text-gray-600 leading-relaxed text-balance-heading">
-              Transform your irrigation practices with technology that works for you. Optimize water usage, protect your
-              crops, and build a more sustainable farming future with intelligent automation.
-            </p>
-          </motion.div>
+            Benefits of <br /> AquaSense 360
+          </h2>
+          <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
+            Transform your irrigation practices with technology that works for you. 
+            Optimize water usage, protect your crops, and build a more sustainable 
+            farming future with intelligent automation.
+          </p>
+        </motion.div>
 
-          <div className="space-y-4">
-            {benefits.map((benefit, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white border-l-4 pl-6 py-4 hover:shadow-lg transition-all"
-                style={{ borderLeftColor: "var(--color-emerald)" }}
-              >
-                <div className="flex items-center gap-4">
-                  <Check style={{ color: "var(--color-emerald)" }} size={24} className="flex-shrink-0" />
-                  <p className="text-lg font-medium" style={{ color: "var(--color-forest-dark)" }}>
-                    {benefit}
-                  </p>
+        {/* COMPACT: Reduced vertical distance between features */}
+        <div className="space-y-6 md:space-y-8"> 
+          {benefits.map((benefit, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: 40 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+              className="flex items-start gap-6 group"
+            >
+              {/* Vertical Accent Line and Checkmark Icon Box */}
+              <div className="flex items-start gap-4 h-full pt-1">
+                <div 
+                  className="w-1 min-h-[60px] bg-[#10B981] rounded-full" 
+                  style={{ opacity: 0.8 }} 
+                />
+                <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center bg-white border border-gray-100 shadow-sm">
+                   <Check className="w-5 h-5 text-[#10B981]" strokeWidth={3} />
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+
+              {/* Benefit Text Content */}
+              <div className="flex flex-col">
+                <h3 className="text-xl font-bold text-[#1A302B] mb-1">
+                  {benefit.title}
+                </h3>
+                <p className="text-base text-gray-500 leading-relaxed">
+                  {benefit.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
