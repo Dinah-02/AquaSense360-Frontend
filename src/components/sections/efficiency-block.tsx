@@ -9,47 +9,32 @@ export default function EfficiencyBlock() {
   const isInView = useInView(ref, { once: true, amount: 0.3 })
 
   return (
-    <section ref={ref} className="py-20 bg-gray-50 px-4">
-      <div className="max-w-5xl mx-auto">
+    <section ref={ref} className="py-24 bg-[#F8FAFB] px-6">
+      {/* Increased max-width to 6xl for more elongation */}
+      <div className="max-w-6xl mx-auto"> 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
-          className="bg-white rounded-2xl p-12 md:p-16 border border-gray-200"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          /* Reduced vertical padding (py-12) to decrease height while maintaining width */
+          className="bg-white rounded-[2.5rem] px-10 py-12 md:px-16 md:py-16 border border-gray-100/50 shadow-sm text-center"
         >
-          <h3
-            className="text-4xl md:text-5xl font-bold mb-6 text-balance-heading"
-            style={{ color: "var(--color-emerald)" }}
+          {/* Elongated layout works better with a tighter heading */}
+          <h2 
+            className="text-3xl md:text-5xl font-bold mb-8 leading-tight tracking-tight"
+            style={{ color: "#004D37" }}
           >
             Good Plant nutrition is a matter of efficiency
-          </h3>
+          </h2>
 
-          <p className="text-xl text-gray-700 leading-relaxed text-balance-heading">
-            Precision irrigation doesn't just save water—it transforms farming. By delivering exactly what plants need,
-            exactly when they need it, AquaSense 360 ensures optimal nutrient uptake, stronger crop development, and
-            higher yields. Every drop counts. Every decision matters. With real-time soil monitoring and weather-aware
-            automation, you're not just farming smarter; you're farming sustainably for generations to come.
+          {/* Wider paragraph container to match the elongated card */}
+          <p className="text-base md:text-lg text-gray-500 leading-relaxed max-w-4xl mx-auto">
+            AquaSense 360 delivers precision irrigation and fertigation solutions that maximize crop yield 
+            while minimizing resource waste. Our AI-driven system learns soil conditions and weather 
+            patterns to deliver exactly what your crops need, when they need it. From soil moisture 
+            sensing to predictive weather integration, every component works in harmony to optimize 
+            your agricultural output.
           </p>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-10 flex gap-4 flex-wrap"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "var(--color-emerald)" }} />
-              <span className="text-gray-700">Real-time monitoring</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "var(--color-emerald)" }} />
-              <span className="text-gray-700">Weather prediction</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "var(--color-emerald)" }} />
-              <span className="text-gray-700">Automated control</span>
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </section>
