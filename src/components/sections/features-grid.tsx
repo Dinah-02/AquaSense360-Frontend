@@ -3,89 +3,106 @@
 import { motion } from "framer-motion"
 import { useRef } from "react"
 import { useInView } from "framer-motion"
-import { Activity, Droplet, Cloud, BarChart3, TrendingUp, MonitorPlay } from "lucide-react"
+import { 
+  Droplet, 
+  Cloud, 
+  Activity, 
+  BarChart3, 
+  TrendingUp, 
+  Monitor 
+} from "lucide-react"
 
 const features = [
   {
-    icon: Droplet,
+    icon: <Droplet className="w-5 h-5 text-emerald-600" />,
     title: "Real-Time Monitoring",
     description: "Live soil moisture and water level tracking",
-    color: "#10a881",
+    iconBg: "bg-emerald-50",
   },
   {
-    icon: Cloud,
+    icon: <Cloud className="w-5 h-5 text-cyan-600" />,
     title: "Rain-Hold Logic",
     description: "Smart weather integration prevents unnecessary watering",
-    color: "#2DD4BF",
+    iconBg: "bg-cyan-50",
   },
   {
-    icon: Activity,
+    icon: <Activity className="w-5 h-5 text-rose-600" />,
     title: "Heatwave Protection",
     description: "Automatic adjustments during extreme weather",
-    color: "#10a881",
+    iconBg: "bg-rose-50",
   },
   {
-    icon: BarChart3,
+    icon: <BarChart3 className="w-5 h-5 text-teal-600" />,
     title: "Climate-Aware Scheduling",
     description: "AI-powered optimization based on local climate patterns",
-    color: "#2DD4BF",
+    iconBg: "bg-teal-50",
   },
   {
-    icon: TrendingUp,
+    icon: <TrendingUp className="w-5 h-5 text-emerald-600" />,
     title: "Water Savings Insights",
     description: "Detailed analytics and resource optimization reports",
-    color: "#10a881",
+    iconBg: "bg-emerald-50",
+    active: true 
   },
   {
-    icon: MonitorPlay,
+    icon: <Monitor className="w-5 h-5 text-blue-600" />,
     title: "Live Monitoring Dashboard",
     description: "Real-time system status and performance metrics",
-    color: "#2DD4BF",
+    iconBg: "bg-blue-50",
   },
 ]
 
 export default function FeaturesGrid() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
 
   return (
-    <section ref={ref} className="py-20 bg-gray-50 px-4">
-      <div className="max-w-6xl mx-auto">
-        <motion.h2
+    <section ref={ref} className="py-24 bg-white px-6">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* RESTORED: Header with original large font sizes */}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
-          className="text-5xl md:text-6xl font-bold text-center mb-16 text-balance-heading"
-          style={{ color: "var(--color-forest-dark)" }}
+          className="text-center mb-16"
         >
-          Everything You Need for Smart Irrigation
-        </motion.h2>
+          <h2 
+            className="text-5xl md:text-6xl font-bold mb-6 tracking-tight"
+            style={{ color: "#1A302B" }}
+          >
+            Everything you need for smart irrigation
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Powerful features designed to make irrigation effortless and efficient.
+          </p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => {
-            const Icon = feature.icon
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="bg-white rounded-xl p-8 border border-gray-200 hover:border-emerald-600 transition-all group"
-              >
-                <div
-                  className="w-16 h-16 rounded-lg flex items-center justify-center mb-6 group-hover:shadow-lg transition-shadow"
-                  style={{ backgroundColor: feature.color + "20" }}
-                >
-                  <Icon size={32} color={feature.color} />
-                </div>
-                <h3 className="text-xl font-bold mb-3" style={{ color: "var(--color-forest-dark)" }}>
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </motion.div>
-            )
-          })}
+        {/* COMPACT: 6-Card Grid to maintain 'one-screen' feel */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, delay: 0.2 + (index * 0.1) }}
+              className={`p-6 rounded-2xl bg-white border transition-all duration-300 hover:shadow-md flex flex-col items-start ${
+                feature.active ? "border-emerald-500/50 shadow-sm" : "border-gray-100"
+              }`}
+            >
+              <div className={`w-10 h-10 ${feature.iconBg} rounded-xl flex items-center justify-center mb-4 shadow-sm`}>
+                {feature.icon}
+              </div>
+              
+              <h3 className="text-lg font-bold mb-1" style={{ color: "#1A302B" }}>
+                {feature.title}
+              </h3>
+              
+              <p className="text-sm text-gray-500 leading-relaxed">
+                {feature.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
